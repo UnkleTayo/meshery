@@ -4,35 +4,48 @@ title: Meshery Architecture
 permalink: architecture
 ---
 
-## Architecture
+# Architecture
 
-#### The Meshery architecture can be observed in two perspectives:
- 
-##### 1. [**Clients**](#1-client-architecture)
-##### 2. [**Providers**](#2-provider-architecture)
+## Languages
+Meshery and its components are written using the following languages and technologies.
 
+- **Meshery Server:** Golang, gRPC
+- **Meshery Adapters:** Golang, gRPC
+- **Meshery WASM Filters:** Rust and C++
+- **Meshery UI:** ReactJS, NextJS, BillboardJS
+- **Meshery Provider UI:** ReactJS, NextJS
+- **Meshery Remote Providers:** _any_ - must adhere to gRPC interfaces
 
-![Meshery architecture](/docs/assets/img/architecture/Meshery-architecture-diagram.png)
+## Deployments
+Meshery deploys as a set of containers. Meshery's containers can be deployed to either Docker or Kubernetes.
 
+[![Meshery architecture](/docs/assets/img/architecture/meshery-architecture.svg)](/docs/assets/img/architecture/meshery-architecture.svg)
 
-### 1. **Client Architecture**
+## Clients
+Meshery's REST API may be consumed by any number of clients. Clients need to present valid JWT token.
 
-![Client architecture](/docs/assets/img/architecture/Meshery-client-architecture.svg)
+[![Client architecture](/docs/assets/img/architecture/meshery-client-architecture.svg)](/docs/assets/img/architecture/meshery-client-architecture.svg)
 
-### 2. **Provider Architecture**
+## Providers
+As a point of extension, Meshery supports two types of providers: _Local_ and _Remote_.
 
-![Provider architecture](/docs/assets/img/architecture/Meshery-provider-architecture.svg)
+[![Provider architecture](/docs/assets/img/architecture/meshery-provider-architecture.svg)](/docs/assets/img/architecture/meshery-provider-architecture.svg)
 
-#### **Network Ports**
+## Object Model
+This diagram outlines logical constructs within Meshery and their relationships.
+
+[![Object Model](/docs/assets/img/architecture/meshery-object-model.svg)](/docs/assets/img/architecture/meshery-object-model.svg)
+
+### **Network Ports**
 
 Meshery uses the following list of network ports to interface with its various components:
 
-| Network Application                            | Port             |
+| Component                                      | Port             |
 | :--------------------------------------------- | :--------------: |
 | Meshery REST API                               | 9081/tcp         |
 | Learn Layer5 Application                       | 10011            |
 
-#### **Adapter Ports**
+### **Adapter Ports**
 
 | Service Mesh  | Port          |
 | :------------ | ------------: |
@@ -44,7 +57,7 @@ Meshery uses the following list of network ports to interface with its various c
 
 See the [**Adapters**](/docs/architecture/adapters) section for more information on the function of an adapter.
 
-#### **Statefulness in Meshery components**
+### **Statefulness in Meshery components**
 
 Some components within Meshery's architecture are concerned with persisting data while others are only
 concerned with a long-lived configuration, while others have no state at all.
